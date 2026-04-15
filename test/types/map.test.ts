@@ -58,3 +58,14 @@ test('set', () => {
     map.set('d', 5)
     expect(map.get('d').js).toBe(5)
 })
+test('key', () => {
+    const MapType = qzaCreateMap(QzaString, QzaF32);
+    const map = new MapType([
+        ['a', 1],
+        ['b', 2],
+        ['c', 3]
+    ]);
+    expect(map.key(0).js).toBe('a')
+    expect(map.key(1).js).toBe('b')
+    expect(map.key(2).js).toBe('c')
+})

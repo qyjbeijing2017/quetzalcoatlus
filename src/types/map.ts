@@ -40,6 +40,14 @@ export abstract class QzaMap<K extends QzaType<any>, V extends QzaType<any>> ext
         return [key, value];
     }
 
+    key(index: number): InstanceType<K> {
+        if (index < 0 || index >= this.length) {
+            throw new RangeError(`Index ${index} is out of bounds for map of length ${this.length}`);
+        }
+        const address = this.refAddress + index * (this.keyType.size + this.valueType.size);
+        return new this.keyType(undefined, this.memory, address) as InstanceType<K>;
+    }
+
     set(k: QzaJSType<K>, v: QzaJSType<V>): void {
         for (let i = 0; i < this.length; i++) {
             const [key, value] = this.at(i);
